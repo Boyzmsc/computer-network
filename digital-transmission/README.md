@@ -1,6 +1,6 @@
 # MLT-3
 
-### Rule
+## Rule
 
 * At the beginning
 
@@ -10,7 +10,7 @@
 
 
 
-* On-running
+* On running
 
 1) If next bit is 0, no transition
 
