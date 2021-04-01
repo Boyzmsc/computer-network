@@ -1,6 +1,6 @@
 # MLT-3
 
-## Rule
+## Rules
 
 * At the beginning
 
