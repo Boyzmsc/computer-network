@@ -6,7 +6,7 @@ import java.util.Scanner;
  {   
    private String physicalData;
    private String bitStuffData = "";
-   private String bitUnstuffData;
+   private String bitUnStuffData;
  
    public Receiver()
    {
@@ -87,12 +87,12 @@ import java.util.Scanner;
 
    public void unStuff ()
    {
-      bitUnstuffData = bitStuffData.replaceAll ("111110", "11111");
+      bitUnStuffData = bitStuffData.replaceAll ("111110", "11111");
    }
 
    public void showOutput ()
    {
-      System.out.println(bitUnstuffData);
+      System.out.println(bitUnStuffData);
    }
  
    public static void main (String [] args)

@@ -2,12 +2,12 @@ import java.util.*;
 import java.util.regex.*;
 import java.util.Scanner;
 
- class BitUnstuff
+ class BitUnStuff
  {   
     private String inputData;
     private String outputData;
  
-   public BitUnstuff()
+   public BitUnStuff()
    {
       getInput ();
    }
@@ -18,7 +18,7 @@ import java.util.Scanner;
       inputData = obj.nextLine();
    }
    
-   public void unstuff ()
+   public void unStuff ()
    {
       outputData = inputData.replaceAll ("111110", "11111");
       showOutput ();
@@ -31,7 +31,7 @@ import java.util.Scanner;
  
    public static void main (String [] args)
    {
-      BitUnstuff bytestuff  = new BitUnstuff ();
-      bytestuff.unstuff();
+      BitUnStuff byteStuff  = new BitUnStuff ();
+      bytestuff.unStuff();
    }
  }
