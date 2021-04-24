@@ -15,6 +15,7 @@ import java.util.Scanner;
  
    public void getInput ()
    {             
+      System.out.print("Input Frame : ");
       Scanner obj = new Scanner(System.in);
       dataLinkData = obj.nextLine();
    }
@@ -28,7 +29,7 @@ import java.util.Scanner;
    public void stuff ()
    {
       bitStuffData = dataLinkData.replaceAll ("11111", "111110");
-      System.out.println("Stuffing Data : " + bitStuffData);
+      System.out.println("After Bit-Stuffing : " + bitStuffData);
    }
 
    public void mlt(){
@@ -82,7 +83,7 @@ import java.util.Scanner;
 
    public void showOutput ()
    {
-      System.out.println(physicalData);
+      System.out.println("After MLT-3 : " + physicalData);
    }
  
    public static void main (String [] args)

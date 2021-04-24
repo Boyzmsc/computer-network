@@ -14,7 +14,8 @@ import java.util.Scanner;
    }
  
    public void getInput ()
-   {             
+   {
+      System.out.print("Input Bit-Stream : ");
       Scanner obj = new Scanner(System.in);
       physicalData = obj.nextLine();
    }
@@ -82,7 +83,7 @@ import java.util.Scanner;
           previous = '-';
         }
       }
-      System.out.println("Stuffing Data : " + bitStuffData);
+      System.out.println("After MLT-3 : " + bitStuffData);
    }
 
    public void unStuff ()
@@ -92,7 +93,7 @@ import java.util.Scanner;
 
    public void showOutput ()
    {
-      System.out.println(bitUnStuffData);
+      System.out.println("After Bit-UnStuffing : " + bitUnStuffData);
    }
  
    public static void main (String [] args)
