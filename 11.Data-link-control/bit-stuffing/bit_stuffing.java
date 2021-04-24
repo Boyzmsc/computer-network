@@ -14,6 +14,7 @@ import java.util.Scanner;
  
    public void getInput ()
    {             
+      System.out.print("Input Data : ");
       Scanner obj = new Scanner(System.in);
       inputData = obj.nextLine();
    }
@@ -26,12 +27,12 @@ import java.util.Scanner;
          
    public void showOutput ()
    {
-      System.out.println(outputData);
+      System.out.println("After Bit-Stuffing : " + outputData);
    }
  
    public static void main (String [] args)
    {
       BitStuff byteStuff  = new BitStuff ();
-      bytestuff.stuff();
+      byteStuff.stuff();
    }
  }
