@@ -12,17 +12,16 @@ import java.util.*;
 public class CSMACDInput
 {
 	private CSMACD caller;
-	private int limit,  cstTime, ackTime, intInput;
+	private int limit, intInput;
 	private String strInput, message, warning;
 	boolean validInput;
 
 	public CSMACDInput (CSMACD caller)
 	{ 
 		this.caller = caller;  
-		limit = getInput ("Enter the maximum number of attemps, between 5 and 15", 5, 15);  
-		cstTime = getInput ("Enter the number of seconds for CTS timer, between 2 and 5", 2, 5);
-		ackTime = getInput ("Enter the number of seconds for ACK timer, between 2 and 5", 2, 5);
-		caller.simulate (limit, cstTime, ackTime);       
+    limit = getInput ("Enter the maximum number of attemps, between 2 and 15", 2, 15);
+		// limit = getInput ("Enter the maximum number of attemps, between 5 and 15", 5, 15);
+		caller.simulate (limit);       
 	}// End Constructor
     
 	private int getInput (String message, int lower, int upper)

@@ -19,11 +19,11 @@ public class CSMACDOutput
 	JPanel panel;
   
 	public CSMACDOutput(String [][] statistics, int k)
-	{     
+	{
 		this.statistics = statistics;
 		this.k= k;
 		fields = new JTextField [k + 2][6];
-		data = new String [k+2][6];
+		data = new String [k + 2][6];
 		panel = new JPanel ();
 		display ();
 	} // End constructor
@@ -39,7 +39,7 @@ public class CSMACDOutput
 		}
 		for (int i = 1; i < k+2; i ++)
 		{
-			data[i][0] = "Attemp " + i;
+			data[i][0] = "Attempt " + i;
 		}
            
 		for (int i = 0; i < k + 1 ; i++)
@@ -53,7 +53,7 @@ public class CSMACDOutput
 		{
 			for (int j = 0 ; j < 6; j++)
 			{       
-				fields[i][j] = new JTextField (6);
+				fields[i][j] = new JTextField (8);
 				fields[i][j].setText (data[i][j]);
 				if (j != 0)
 				fields[i][j].setHorizontalAlignment (JTextField.CENTER); 

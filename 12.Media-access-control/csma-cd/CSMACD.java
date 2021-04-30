@@ -14,14 +14,13 @@ import java.util.*;
 
 public class CSMACD
 {
-	private int limit, k, r, ctsTimeSetting, ackTimeSetting, tbSetting;
-	private final int csmaSetting = 1;
-  private final int tfrSetting = 1;
-	private boolean ctsReceived;
-	private boolean ackReceived;
+	private int limit, k, r, tbSetting;
+	private final int csmaSetting = 2;
+  private final int tfrSetting = 2;
+  private boolean isTransDone;
+  private boolean isColliDetected;
 	private boolean success;
 	private boolean abort;
-	private boolean status;
 	private Random random;
 	private String [][] statistics;
 	CSMACDEvent event;
@@ -34,11 +33,9 @@ public class CSMACD
 		input = new CSMACDInput (this);
 	} // End 
 
-	public void simulate (int limit, int ctsTimeSetting, int ackTimeSetting)
+	public void simulate (int limit)
 	{
-		this.limit = limit; 
-		this.ctsTimeSetting = ctsTimeSetting;
-		this.ackTimeSetting = ackTimeSetting;
+		this.limit = limit;
 		statistics = new String [limit][6];
 		k = 0;
 		success = false;
@@ -51,6 +48,11 @@ public class CSMACD
 		{
 			k--;
 		}
+    // for(int i = 0;i<k;i++){
+    //   for(int j = 0;j<6;j++){
+    //     System.out.println(statistics[i][j]);
+    //   }
+    // }
 		output = new CSMACDOutput (statistics, k); 
 	}// End Simulate
 
@@ -59,43 +61,55 @@ public class CSMACD
 		event = new CSMACDEvent ();           
 		event.add ("Attempt " + (k + 1) + ":");
 
-    while(csma()){
+    if(csma()){
       event.add ("Channel is busy, waiting a ramdom amount of time ...");
       wait (csmaSetting);
+      while(csma()){
+        wait (csmaSetting);
+      }
     }
     event.add ("Channel is idle, ready to transmit ...");
     
-    while(!transDone() && !isColliDetected()){
+    isTransDone = isTransDone();
+    isColliDetected = isColliDetected();
+    if(!isTransDone && !isColliDetected){
       event.add ("Transmit and Receive ...");
-    }else{
-      if(transDone()){
-        statistics [k][0] = "Done";
-      }else{
-        statistics [k][0] = "Not done";
-      }
-      if(isColliDetected()){
-        event.add ("Collision detected, sending jamming signal ...");
-        statistics [k][1] = "Detected";
-        statistics [k][2] = "X";
-        success = false;
-      }else{
-        event.add ("Collision not detected, Success");
-        statistics [k][1] = "Not detected";
-        statistics [k][2] = "O";
-        statistics [k][3] = "X";
-        statistics [k][4] = "NA";
-        success = true;
+      while(!isTransDone && !isColliDetected){
+        isTransDone = isTransDone();
+        isColliDetected = isColliDetected();
       }
     }
-		
+
+    if(isTransDone){
+      event.add ("Transmission done ...");
+      statistics [k][0] = "Done";
+    }else{
+      event.add ("Transmission not done ...");
+      statistics [k][0] = "Not done";
+    }
+
+    if(isColliDetected){
+      event.add ("Collision detected, sending jamming signal ...");
+      statistics [k][1] = "Detected";
+      statistics [k][2] = "X";
+      success = false;
+    }else{
+      event.add ("Collision not detected, Success");
+      statistics [k][1] = "Not detected";
+      statistics [k][2] = "O";
+      statistics [k][3] = "X";
+      statistics [k][4] = "NA";
+      success = true;
+    }
+    
 		if (!success)
 		{
 			k++;
-			if (k > limit)
+			if (k >= limit)
 			{
 				event.add ("The whole process was aborted. We need to try another time.");
-        statistics [k][3] = "O";
-        statistics [k][4] = "NA";           
+        statistics [k-1][3] = "O";
+        statistics [k-1][4] = "NA";           
 				abort = true;
 			} 
 			else 
@@ -105,11 +119,13 @@ public class CSMACD
         // TB = R * Tfr
         tbSetting = tfrSetting * random.nextInt ((int) Math.pow (2, k));             
 				wait(tbSetting);
-        statistics [k][3] = "X";
-        statistics [k][4] = String.valueOf (tbSetting);
+        statistics [k-1][3] = "X";
+        statistics [k-1][4] = String.valueOf (tbSetting);
         abort = false;
 			}
 		}
+    // To check event
+    wait (5);
 		event.end ();
 	} // End attempt
           
