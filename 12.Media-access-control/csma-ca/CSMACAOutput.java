@@ -39,7 +39,7 @@ public class CSMACAOutput
 		}
 		for (int i = 1; i < k+2; i ++)
 		{
-			data[i][0] = "Attemp " + i;
+			data[i][0] = "Attempt " + i;
 		}
            
 		for (int i = 0; i < k + 1 ; i++)
