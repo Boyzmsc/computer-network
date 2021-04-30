@@ -57,7 +57,7 @@ public class CSMACA
 	private void attempt ()
 	{
 		event = new CSMACAEvent ();           
-		event.add ("Attemp " + (k + 1) + ":"); 
+		event.add ("Attempt " + (k + 1) + ":"); 
 		r =  getFreeChannel () + 1;
 		event.add ("Slot " + r + " is selected, waiting to reach this slot in the contention window ...");
 		statistics [k][0] = String.valueOf (r + 1);
@@ -77,7 +77,7 @@ public class CSMACA
 			ackReceived = send (ackTimeSetting);
 			if (ackReceived)
 			{
-				event.add ("Acknowledgement was received. The attemp was successful.");
+				event.add ("Acknowledgement was received. The attempt was successful.");
 				statistics [k][4] = "Received";
 				success = true;
 			}  
@@ -100,7 +100,7 @@ public class CSMACA
 			k++;
 			if (k < limit)
 			{
-				event.add ("Waiting the TB timer to expire and to start a new attemp ...");                
+				event.add ("Waiting the TB timer to expire and to start a new attempt ...");                
 				wait(tbSetting); 
 			} 
 			else 
@@ -111,7 +111,7 @@ public class CSMACA
 		}
 		wait (5);
 		event.end ();
-	} // End attemp    
+	} // End attempt    
           
 	public void wait (int seconds)
 	{
