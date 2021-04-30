@@ -6,6 +6,9 @@
 # Execution files
 *.exe
 
+# Java Execution files
+*.class
+
 # User-specific files
 *.rsuser
 *.suo
