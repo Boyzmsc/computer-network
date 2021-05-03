@@ -19,8 +19,8 @@ public class CSMACDInput
 	public CSMACDInput (CSMACD caller)
 	{ 
 		this.caller = caller;  
-    limit = getInput ("Enter the maximum number of attemps, between 2 and 15", 2, 15);
-		// limit = getInput ("Enter the maximum number of attemps, between 5 and 15", 5, 15);
+    // limit = getInput ("Enter the maximum number of attemps, between 2 and 15", 2, 15);
+		limit = getInput ("Enter the maximum number of attemps, between 5 and 15", 5, 15);
 		caller.simulate (limit);       
 	}// End Constructor
     

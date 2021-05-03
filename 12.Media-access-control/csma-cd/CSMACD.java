@@ -48,11 +48,14 @@ public class CSMACD
 		{
 			k--;
 		}
+
+    // To check statistics
     // for(int i = 0;i<k;i++){
     //   for(int j = 0;j<6;j++){
     //     System.out.println(statistics[i][j]);
     //   }
     // }
+    
 		output = new CSMACDOutput (statistics, k); 
 	}// End Simulate
 
