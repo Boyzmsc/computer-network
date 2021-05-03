@@ -1,6 +1,6 @@
 /**
-* 	This is the input class in the CSMA/CA project. It gets some parameters that need to 
-*	set from the user and pass them to the CSMACD class.   
+* This is the input class in the CSMA/CD project. 
+* It gets some parameters that need to set from the user and pass them to the CSMA/CD class.   
 */ 
 
 import javax.swing.*;

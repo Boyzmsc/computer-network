@@ -1,5 +1,5 @@
 /**
-* 	This is the event class that is used in conjunction with the CSMA class
+* This is the event class that is used in conjunction with the CSMA class
 *	to simulate the occurrence of events   
 */ 
 

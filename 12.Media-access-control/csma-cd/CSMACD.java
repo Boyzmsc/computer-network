@@ -1,8 +1,8 @@
 /**
-* 	This is the mother class in the program that uses three other classes to
-*	simulate the CSMA/CA. The program is also the driver for
-*	this project. It is the software implemenation of the flow diagram for
-*	this protocol. We are using some timers to simulate the sending and receving
+* This is the mother class in the program that uses three other classes to
+*	simulate the CSMA/CD. The program is also the driver for this project. 
+* It is the software implemenation of the flow diagram for this protocol.
+*	We are using some timers to simulate the sending and receving
 *	packets in this implementation.   
 */ 
 
@@ -141,45 +141,45 @@ public class CSMACD
 		catch (InterruptedException e){}
 	} // End wait  
 
-	public boolean send (int timeoutSeconds)
-	{   
-		try
-		{
-			Thread.sleep (1000 * timeoutSeconds);
-		} 
-		catch (InterruptedException e){} 
-		return (random.nextBoolean ());
-	}  //End send   
-
   // CSMA : non-Persistent
   // True : Channel busy , False : Channel idle
   public boolean csma ()
 	{
 		return (random.nextBoolean ());
-	}
+	} // End csma
 
   // Check transmission done
   // True : Transmission done , False : Transmission not done
   public boolean isTransDone ()
 	{
 		return (random.nextBoolean ());
-	}
+	} // End isTransDone
 
   // Check collision detected
   // True : Collision detected , False : Collision not detected
   public boolean isColliDetected ()
 	{
 		return (random.nextBoolean ());
-	}
+	} // End isColliDetected
 
-	public int getFreeChannel ()
-	{
-		return (random.nextInt ((int) Math.pow (2, k)));
-	} // End getFreeChannel 
+  // public boolean send (int timeoutSeconds)
+	// {   
+	// 	try
+	// 	{
+	// 		Thread.sleep (1000 * timeoutSeconds);
+	// 	} 
+	// 	catch (InterruptedException e){} 
+	// 	return (random.nextBoolean ());
+	// } // End send
+
+	// public int getFreeChannel ()
+	// {
+	// 	return (random.nextInt ((int) Math.pow (2, k)));
+	// } // End getFreeChannel
 
 	public static void main (String args[])
 	{      
 		CSMACD csmacd = new CSMACD ();
-	}// End main
+	} // End main
 	
-}// End class
+} // End class

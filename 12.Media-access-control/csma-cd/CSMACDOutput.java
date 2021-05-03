@@ -1,5 +1,5 @@
 /**
-* 	This is the output class in the CSMA/CA project that shows the result of the program. 
+* This is the output class in the CSMA/CD project that shows the result of the program. 
 *	The display method uses the GUI interface to show the output.   
 */ 
 
