@@ -64,14 +64,7 @@ public class CSMACD
 		event = new CSMACDEvent ();           
 		event.add ("Attempt " + (k + 1) + ":");
 
-    if(csma()){
-      event.add ("Channel is busy, waiting a ramdom amount of time ...");
-      wait (csmaSetting);
-      while(csma()){
-        wait (csmaSetting);
-      }
-    }
-    event.add ("Channel is idle, ready to transmit ...");
+    csma(csmaSetting);
     
     isTransDone = isTransDone();
     isColliDetected = isColliDetected();
@@ -143,9 +136,19 @@ public class CSMACD
 
   // CSMA : non-Persistent
   // True : Channel busy , False : Channel idle
-  public boolean csma ()
+  public void csma (int seconds)
 	{
-		return (random.nextBoolean ());
+    int waitSeconds;
+    if(random.nextBoolean()){
+      event.add ("Channel is busy, waiting a ramdom amount of time ...");
+      waitSeconds = random.nextInt(seconds);
+      wait (waitSeconds);
+      while(random.nextBoolean()){
+        waitSeconds = random.nextInt(seconds);
+        wait (waitSeconds);
+      }
+    }
+    event.add ("Channel is idle, ready to transmit ...");
 	} // End csma
 
   // Check transmission done
