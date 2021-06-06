@@ -24,7 +24,7 @@ public class SimpleReceiver extends Thread {
 
          System.out.println("\n\n// From Sender,");
 
-         System.out.println("Packet (Data : " + input + ") Arrived");
+         System.out.println("Packet Arrived (Data : " + input + ")");
          System.out.println("Deliver it to Process");
       }
 

@@ -31,7 +31,7 @@ public class SimpleSender {
          if (Math.random() > LOSS) {
             sender.send(output);
          } else {
-            System.out.println("Packet (Data : " + data + ") Lost");
+            System.out.println("Lost Packet (Data : " + data + ")");
          }
 
          Thread.sleep(2000);
