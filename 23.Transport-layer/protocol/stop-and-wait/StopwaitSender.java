@@ -48,7 +48,7 @@ class StopwaitSender {
                if (Math.random() > LOSS) {
                   sender.send(output);
                } else {
-                  System.out.println("Packet (seqNo : " + seqNo + ") Lost");
+                  System.out.println("Lost Packet (seqNo : " + seqNo + ")");
                }
 
                DatagramPacket input = new DatagramPacket(receivedData, receivedData.length);
@@ -61,7 +61,7 @@ class StopwaitSender {
                if (Math.random() > CORRUPTED) {
                   if (in == (seqNo + 1) % 2) {
                      isBlocked = false;
-                     System.out.println("Error-free Ack (ackNo : " + in + ") Arrived");
+                     System.out.println("Error-free Ack Arrived (ackNo : " + in + ")");
                      System.out.println("Stop the Timer\n");
                   } else {
                      System.out.println("Error-free Ack (ackNo : " + in
@@ -69,13 +69,13 @@ class StopwaitSender {
                      seqNo = tmp;
                   }
                } else {
-                  System.out.println("Corrupted Ack (ackNo : " + in + ") Arrived, Discard the Ack\n");
+                  System.out.println("Corrupted Ack Arrived (ackNo : " + in + "), Discard the Ack\n");
                   seqNo = tmp;
                }
 
             } catch (SocketTimeoutException exception) {
                System.out.println("Time-out");
-               System.out.println("Resending Packet (seqNo : " + seqNo + ")\n");
+               System.out.println("Ready for Resending Packet (seqNo : " + seqNo + ")\n");
                seqNo = tmp;
             }
          }

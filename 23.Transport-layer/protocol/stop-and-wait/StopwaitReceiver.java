@@ -34,7 +34,7 @@ public class StopwaitReceiver {
          System.out.println("\n\n// From Sender,");
 
          if (Math.random() > CORRUPTED) {
-            System.out.println("Error-free Packet (seqNo : " + input + ") Arrived");
+            System.out.println("Error-free Packet Arrived (seqNo : " + input + ")");
 
             InetAddress address = received.getAddress();
             int port = received.getPort();
@@ -55,10 +55,10 @@ public class StopwaitReceiver {
             if (Math.random() > LOSS) {
                serverSocket.send(output);
             } else {
-               System.out.println("Ack (ackNo : " + R + ") Lost");
+               System.out.println("Lost Ack (ackNo : " + R + ")");
             }
          } else {
-            System.out.println("Corrupted Packet (seqNo : " + input + ") Arrived, Discard the Packet");
+            System.out.println("Corrupted Packet Arrived (seqNo : " + input + "), Discard the Packet");
          }
       }
 
