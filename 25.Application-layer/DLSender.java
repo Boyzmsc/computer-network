@@ -5,16 +5,15 @@ import java.util.*;
 
 public class DLSender {
 
-   private Random random;
-   private int k, tbSetting;
-   private final double SUCCESS = 0.1;
-   private final int csmaSetting = 2;
-   private final int tfrSetting = 2;
-   private boolean isTransDone;
-   private boolean isColliDetected;
-   private boolean success;
+   private static Random random = new Random();
+   private static int k, tbSetting;
+   private static final int csmaSetting = 1;
+   private static final int tfrSetting = 1;
+   private static boolean isTransDone;
+   private static boolean isColliDetected;
+   private static boolean success;
 
-   public void main(String[] args) throws IOException, ClassNotFoundException {
+   public static void main(String[] args) throws IOException, ClassNotFoundException {
       DatagramSocket serverSocket = new DatagramSocket(2222);
 
       DatagramSocket sender = new DatagramSocket();
@@ -30,11 +29,10 @@ public class DLSender {
       ObjectInputStream is = new ObjectInputStream(in);
       Data data = (Data) is.readObject();
 
-      int L3Port = received.getPort();
-
       System.out.println("\n//// Datalink Layer Sender");
+
+      System.out.println("\nNetwork Layer >>> Datalink Layer");
       System.out.println("--------------------------------------------------");
-      System.out.println("Received From Network Layer Sender");
       System.out.println("Input Data : " + data.getData());
 
       // Bit-Stuffing
@@ -44,8 +42,8 @@ public class DLSender {
       // CSMA-CD
       csmacd();
 
-      System.out.println("\n--------------------------------------------------");
-      System.out.println("Send To Physical Layer Sender");
+      System.out.println("\n\nDatalink Layer >>> Physical Layer");
+      System.out.println("--------------------------------------------------");
       System.out.println("Output Data : " + data.getData());
 
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -66,44 +64,48 @@ public class DLSender {
       is = new ObjectInputStream(in);
       data = (Data) is.readObject();
 
-      System.out.println("\n--------------------------------------------------");
-      System.out.println("Received From Physical Layer Sender");
+      System.out.println("\n\nPhysical Layer >>> Datalink Layer");
+      System.out.println("--------------------------------------------------");
       System.out.println("Input Data : " + data.getData());
 
       // Bit-Unstuffing
       String bitUnstuff = unStuff(data.getData());
       data.setData(bitUnstuff);
 
-      System.out.println("\n--------------------------------------------------");
-      System.out.println("Send To Network Layer Sender");
-      System.out.println("Output Data : " + data.getData());
+      System.out.println("\n\nDatalink Layer >>> Network Layer");
+      System.out.println("--------------------------------------------------");
+      System.out.println("Output Data : " + data.getData() + "\n");
 
       outputStream = new ByteArrayOutputStream();
       os = new ObjectOutputStream(outputStream);
       os.writeObject(data);
       sendData = outputStream.toByteArray();
 
-      output = new DatagramPacket(sendData, sendData.length, address, L3Port);
+      output = new DatagramPacket(sendData, sendData.length, address, 3333);
       sender.send(output);
+
+      serverSocket.close();
+      sender.close();
    }
 
    // Bit-Stuffing, Bit-Unstuffing
-   public String stuff(String inputData) {
+   public static String stuff(String inputData) {
       String outputData = inputData.replaceAll("11111", "111110");
       return outputData;
    }
 
-   public String unStuff(String inputData) {
+   public static String unStuff(String inputData) {
       String outputData = inputData.replaceAll("111110", "11111");
       return outputData;
    }
 
    // CSMACD
-   public void csmacd() {
+   public static void csmacd() {
       k = 0;
       success = false;
       while (!success) {
-         System.out.println("\nAttempt " + (k + 1) + ":");
+         int count = k + 1;
+         System.out.println("\nAttempt " + count + ":");
 
          csma(csmaSetting);
 
@@ -130,36 +132,33 @@ public class DLSender {
             System.out.println("Collision not detected, Success");
             success = true;
          }
+
+         if (!success) {
+            // For Ideal Case
+            // System.out.println("The whole process was aborted. We need to try another
+            // time.");
+            k++;
+
+            System.out.println("Waiting the TB timer to expire and to start a new attempt ...");
+            // Random number R between 0 and 2^k-1
+            // TB = R * Tfr
+            tbSetting = tfrSetting * random.nextInt((int) Math.pow(2, k));
+            wait(tbSetting);
+         }
+
+         // To check event
+         wait(3);
       }
-
-      if (!success) {
-         // For Ideal Case
-         // System.out.println("The whole process was aborted. We need to try another
-         // time.");
-         k++;
-
-         System.out.println("Waiting the TB timer to expire and to start a new attempt ...");
-         // Random number R between 0 and 2^k-1
-         // TB = R * Tfr
-         tbSetting = tfrSetting * random.nextInt((int) Math.pow(2, k));
-         wait(tbSetting);
-      }
-
-      // To check event
-      wait(3);
    }
 
    // CSMA : non-Persistent
    // True : Channel busy , False : Channel idle
-   public void csma(int seconds) {
-      int waitSeconds;
-      if (Math.random() > SUCCESS) {
+   public static void csma(int seconds) {
+      if (Math.random() > 0.5) {
          System.out.println("Channel is busy, waiting a ramdom amount of time ...");
-         waitSeconds = random.nextInt(seconds);
-         wait(waitSeconds);
-         while (Math.random() > SUCCESS) {
-            waitSeconds = random.nextInt(seconds);
-            wait(waitSeconds);
+         wait(seconds);
+         while (Math.random() > 0.5) {
+            wait(seconds);
          }
       }
       System.out.println("Channel is idle, ready to transmit ...");
@@ -167,17 +166,17 @@ public class DLSender {
 
    // Check transmission done
    // True : Transmission done , False : Transmission not done
-   public boolean isTransDone() {
-      return (Math.random() > SUCCESS);
+   public static boolean isTransDone() {
+      return (Math.random() > 0.2);
    } // End isTransDone
 
    // Check collision detected
    // True : Collision detected , False : Collision not detected
-   public boolean isColliDetected() {
-      return (Math.random() > SUCCESS);
+   public static boolean isColliDetected() {
+      return (Math.random() < 0.2);
    } // End isColliDetected
 
-   public void wait(int seconds) {
+   public static void wait(int seconds) {
       try {
          Thread.sleep(1000 * seconds);
       } catch (InterruptedException e) {

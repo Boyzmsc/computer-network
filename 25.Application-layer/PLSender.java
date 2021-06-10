@@ -5,7 +5,7 @@ import java.util.*;
 
 public class PLSender {
 
-   public void main(String[] args) throws IOException, ClassNotFoundException {
+   public static void main(String[] args) throws IOException, ClassNotFoundException {
       DatagramSocket serverSocket = new DatagramSocket(1111);
 
       DatagramSocket sender = new DatagramSocket();
@@ -21,19 +21,18 @@ public class PLSender {
       ObjectInputStream is = new ObjectInputStream(in);
       Data data = (Data) is.readObject();
 
-      int L2Port = received.getPort();
-
       System.out.println("\n//// Physical Layer Sender");
+
+      System.out.println("\nDatalink Layer >>> Physical Layer");
       System.out.println("--------------------------------------------------");
-      System.out.println("Received From Datalink Layer Sender");
       System.out.println("Input Data : " + data.getData());
 
       // MLT-3
       String afterMlt = mlt(data.getData());
       data.setData(afterMlt);
 
-      System.out.println("\n--------------------------------------------------");
-      System.out.println("Send To Physical Layer Receiver");
+      System.out.println("\n\nPhysical Layer >>> Physical Layer");
+      System.out.println("--------------------------------------------------");
       System.out.println("Output Data : " + data.getData());
 
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -54,29 +53,32 @@ public class PLSender {
       is = new ObjectInputStream(in);
       data = (Data) is.readObject();
 
-      System.out.println("\n--------------------------------------------------");
-      System.out.println("Received From Physical Layer Receiver");
+      System.out.println("\n\nPhysical Layer >>> Physical Layer");
+      System.out.println("--------------------------------------------------");
       System.out.println("Input Data : " + data.getData());
 
       // Un MLT-3
       String afterUnMlt = unMlt(data.getData());
       data.setData(afterUnMlt);
 
-      System.out.println("\n--------------------------------------------------");
-      System.out.println("Send To Datalink Layer Sender");
-      System.out.println("Output Data : " + data.getData());
+      System.out.println("\n\nPhysical Layer >>> Datalink Layer");
+      System.out.println("--------------------------------------------------");
+      System.out.println("Output Data : " + data.getData() + "\n");
 
       outputStream = new ByteArrayOutputStream();
       os = new ObjectOutputStream(outputStream);
       os.writeObject(data);
       sendData = outputStream.toByteArray();
 
-      output = new DatagramPacket(sendData, sendData.length, address, L2Port);
+      output = new DatagramPacket(sendData, sendData.length, address, 2222);
       sender.send(output);
+
+      serverSocket.close();
+      sender.close();
    }
 
    // MLT-3
-   public String mlt(String inputData) {
+   public static String mlt(String inputData) {
       String physicalData = "";
       int level = 0;
       Boolean isUp = true;
@@ -115,7 +117,7 @@ public class PLSender {
    }
 
    // Un MLT-3
-   public String unMlt(String physicalData) {
+   public static String unMlt(String physicalData) {
       String rlt = "";
       char previous = '0';
 

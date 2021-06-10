@@ -5,6 +5,8 @@ import java.util.*;
 
 public class ALSender {
    public static void main(String[] args) throws IOException, ClassNotFoundException {
+      DatagramSocket serverSocket = new DatagramSocket(55555);
+
       DatagramSocket sender = new DatagramSocket();
       InetAddress address = InetAddress.getByName("localhost");
 
@@ -19,8 +21,9 @@ public class ALSender {
       data.setData(sendMsg);
 
       System.out.println("\n//// Application Layer Sender");
+
+      System.out.println("\nApplication Layer >>> Transport Layer");
       System.out.println("--------------------------------------------------");
-      System.out.println("Send To Transport Layer Sender");
       System.out.println("Output Data : " + data.getData());
 
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -31,21 +34,23 @@ public class ALSender {
       DatagramPacket output = new DatagramPacket(sendData, sendData.length, address, 4444);
       sender.send(output);
 
-      try {
-         DatagramPacket received = new DatagramPacket(receivedData, receivedData.length);
-         sender.receive(received);
+      //////////////////////////////////////////////////////////////////////////////
 
-         byte[] getData = received.getData();
-         ByteArrayInputStream in = new ByteArrayInputStream(getData);
-         ObjectInputStream is = new ObjectInputStream(in);
-         data = (Data) is.readObject();
+      DatagramPacket received = new DatagramPacket(receivedData, receivedData.length);
+      serverSocket.receive(received);
 
-         System.out.println("\n--------------------------------------------------");
-         System.out.println("From Transport Layer Sender");
-         System.out.println("Input Data : " + data.getData());
+      byte[] getData = received.getData();
+      ByteArrayInputStream in = new ByteArrayInputStream(getData);
+      ObjectInputStream is = new ObjectInputStream(in);
+      data = (Data) is.readObject();
 
-      } catch (SocketTimeoutException exception) {
-         exception.printStackTrace();
-      }
+      System.out.println("\n\nTransport Layer >>> Application Layer");
+      System.out.println("--------------------------------------------------");
+      System.out.println("Input Data : " + data.getData());
+
+      System.out.println("\nReceived Complete\n");
+
+      serverSocket.close();
+      sender.close();
    }
 }

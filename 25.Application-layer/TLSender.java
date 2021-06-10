@@ -23,19 +23,19 @@ public class TLSender {
       ObjectInputStream is = new ObjectInputStream(in);
       Data data = (Data) is.readObject();
 
-      int L5Port = received.getPort();
-
       System.out.println("\n//// Transport Layer Sender");
+
+      System.out.println("\nApplication Layer >>> Transport Layer");
       System.out.println("--------------------------------------------------");
-      System.out.println("Received From Application Layer Sender");
       System.out.println("Input Data : " + data.getData());
 
       seqNo = (seqNo + 1) % 2;
-      data.setAckNo(seqNo);
+      data.setSeqNo(seqNo);
 
-      System.out.println("\n--------------------------------------------------");
-      System.out.println("Send To Network Layer Sender");
+      System.out.println("\n\nTransport Layer >>> Network Layer");
+      System.out.println("--------------------------------------------------");
       System.out.println("Output Data : " + data.getData());
+      System.out.println("Output SeqNo : " + data.getSeqNo());
 
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
       ObjectOutputStream os = new ObjectOutputStream(outputStream);
@@ -55,22 +55,28 @@ public class TLSender {
       is = new ObjectInputStream(in);
       data = (Data) is.readObject();
 
-      System.out.println("\n--------------------------------------------------");
-      System.out.println("Received From Network Layer Sender");
+      System.out.println("\n\nNetwork Layer >>> Transport Layer");
+      System.out.println("--------------------------------------------------");
       System.out.println("Input Data : " + data.getData());
+      System.out.println("Input AckNo : " + data.getAckNo());
+      System.out.println("Input Ack : " + data.getAck());
 
       // check ACK
+      System.out.println("\n\nReceived Ack Complete");
 
-      System.out.println("\n--------------------------------------------------");
-      System.out.println("Send To Application Layer Sender");
-      System.out.println("Output Data : " + data.getData());
+      System.out.println("\n\nTransport Layer >>> Application Layer");
+      System.out.println("--------------------------------------------------");
+      System.out.println("Output Data : " + data.getData() + "\n");
 
       outputStream = new ByteArrayOutputStream();
       os = new ObjectOutputStream(outputStream);
       os.writeObject(data);
       sendData = outputStream.toByteArray();
 
-      output = new DatagramPacket(sendData, sendData.length, address, L5Port);
+      output = new DatagramPacket(sendData, sendData.length, address, 55555);
       sender.send(output);
+
+      serverSocket.close();
+      sender.close();
    }
 }
