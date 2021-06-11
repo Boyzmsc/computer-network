@@ -42,6 +42,7 @@ public class NLSender {
       sender.send(output);
 
       ///////////////////////////////////////////////////////////////////////////
+      System.out.println("\n\n///////////////////////////////////////////////////////////");
 
       received = new DatagramPacket(receivedData, receivedData.length);
       serverSocket.receive(received);
@@ -53,13 +54,13 @@ public class NLSender {
 
       System.out.println("\n\nDatalink Layer >>> Network Layer");
       System.out.println("--------------------------------------------------");
-      System.out.println("Input Data : " + data.getData());
+      System.out.println("Input Ack Data : " + data.getAck());
 
       // By-pass
 
       System.out.println("\n\nNetwork Layer >>> Transport Layer");
       System.out.println("--------------------------------------------------");
-      System.out.println("Output Data : " + data.getData() + "\n");
+      System.out.println("Output Ack Data : " + data.getAck() + "\n\n");
 
       outputStream = new ByteArrayOutputStream();
       os = new ObjectOutputStream(outputStream);

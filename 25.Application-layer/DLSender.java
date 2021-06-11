@@ -55,6 +55,7 @@ public class DLSender {
       sender.send(output);
 
       ///////////////////////////////////////////////////////////////////////////
+      System.out.println("\n\n///////////////////////////////////////////////////////////");
 
       received = new DatagramPacket(receivedData, receivedData.length);
       serverSocket.receive(received);
@@ -66,15 +67,15 @@ public class DLSender {
 
       System.out.println("\n\nPhysical Layer >>> Datalink Layer");
       System.out.println("--------------------------------------------------");
-      System.out.println("Input Data : " + data.getData());
+      System.out.println("Input Ack Data : " + data.getAck());
 
       // Bit-Unstuffing
-      String bitUnstuff = unStuff(data.getData());
-      data.setData(bitUnstuff);
+      String bitUnstuff = unStuff(data.getAck());
+      data.setAck(bitUnstuff);
 
       System.out.println("\n\nDatalink Layer >>> Network Layer");
       System.out.println("--------------------------------------------------");
-      System.out.println("Output Data : " + data.getData() + "\n");
+      System.out.println("Output Ack Data : " + data.getAck() + "\n\n");
 
       outputStream = new ByteArrayOutputStream();
       os = new ObjectOutputStream(outputStream);
@@ -105,7 +106,7 @@ public class DLSender {
       success = false;
       while (!success) {
          int count = k + 1;
-         System.out.println("\nAttempt " + count + ":");
+         System.out.println("\n\nAttempt " + count + ":");
 
          csma(csmaSetting);
 
@@ -167,13 +168,13 @@ public class DLSender {
    // Check transmission done
    // True : Transmission done , False : Transmission not done
    public static boolean isTransDone() {
-      return (Math.random() > 0.2);
+      return (Math.random() > 0.3);
    } // End isTransDone
 
    // Check collision detected
    // True : Collision detected , False : Collision not detected
    public static boolean isColliDetected() {
-      return (Math.random() < 0.2);
+      return (Math.random() < 0.3);
    } // End isColliDetected
 
    public static void wait(int seconds) {

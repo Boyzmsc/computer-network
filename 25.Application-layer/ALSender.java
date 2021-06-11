@@ -35,6 +35,7 @@ public class ALSender {
       sender.send(output);
 
       //////////////////////////////////////////////////////////////////////////////
+      System.out.println("\n\n///////////////////////////////////////////////////////////");
 
       DatagramPacket received = new DatagramPacket(receivedData, receivedData.length);
       serverSocket.receive(received);
@@ -46,9 +47,7 @@ public class ALSender {
 
       System.out.println("\n\nTransport Layer >>> Application Layer");
       System.out.println("--------------------------------------------------");
-      System.out.println("Input Data : " + data.getData());
-
-      System.out.println("\nReceived Complete\n");
+      System.out.println("Received Check Complete\n\n");
 
       serverSocket.close();
       sender.close();

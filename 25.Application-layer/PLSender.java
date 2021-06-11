@@ -44,6 +44,7 @@ public class PLSender {
       sender.send(output);
 
       ///////////////////////////////////////////////////////////////////////////
+      System.out.println("\n\n///////////////////////////////////////////////////////////");
 
       received = new DatagramPacket(receivedData, receivedData.length);
       serverSocket.receive(received);
@@ -55,15 +56,15 @@ public class PLSender {
 
       System.out.println("\n\nPhysical Layer >>> Physical Layer");
       System.out.println("--------------------------------------------------");
-      System.out.println("Input Data : " + data.getData());
+      System.out.println("Input Ack Data : " + data.getAck());
 
       // Un MLT-3
-      String afterUnMlt = unMlt(data.getData());
-      data.setData(afterUnMlt);
+      String afterUnMlt = unMlt(data.getAck());
+      data.setAck(afterUnMlt);
 
       System.out.println("\n\nPhysical Layer >>> Datalink Layer");
       System.out.println("--------------------------------------------------");
-      System.out.println("Output Data : " + data.getData() + "\n");
+      System.out.println("Output Ack Data : " + data.getAck() + "\n\n");
 
       outputStream = new ByteArrayOutputStream();
       os = new ObjectOutputStream(outputStream);
