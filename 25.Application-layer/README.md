@@ -28,42 +28,42 @@
 public class Data implements Serializable {
     // Get Ack (Ascii Binary)
     public String getAck() {
-    		// ...
+    	// ...
     }
     
-  	// Set Ack (Ascii Binary)
+    // Set Ack (Ascii Binary)
     public void setAck(String a) {
-    		// ...
+    	// ...
     }
     
-  	// Get SeqNo
+    // Get SeqNo
     public int getSeqNo() {
-    		// ...
+    	// ...
     }
     
-  	// Set SeqNo
+    // Set SeqNo
     public void setSeqNo(int n) {
-    		// ...
+    	// ...
     }
     
-  	// Get AckNo
+    // Get AckNo
     public int getAckNo() {
-    		// ...
+    	// ...
     }
     
-  	// Set AckNo
+    // Set AckNo
     public void setAckNo(int n) {
-    		// ...
+    	// ...
     }
     
-  	// Get Data
+    // Get Data
     public String getData() {
-    		// ...
+    	// ...
     }
     
-  	// Set Data
+    // Set Data
     public void setData(String d) {
-    		// ...
+    	// ...
     }
 }
 ```
@@ -112,9 +112,9 @@ public class TLSender {
         // Transport Layer >>> Application Layer
     }
     
-  	// Check Ack
+    // Check Ack
     public static boolean checkAck(Data data) {
-    		// ...
+    	// ...
     }
 }
 ```
@@ -169,42 +169,42 @@ public class DLSender {
         // Datalink Layer >>> Network Layer
     }
     
-  	// Bit-Stuffing
+    // Bit-Stuffing
     public static String stuff(String inputData) {
-    		// ...
+    	// ...
     }
     
-  	// Bit-Unstuffing
+    // Bit-Unstuffing
     public static String unStuff(String inputData) {
-    		// ...
+    	// ...
     }
     
-  	// CSMACD
+    // CSMACD
     public static void csmacd() {
-    		// ...
+    	// ...
     }
     
-  	// CSMA : non-Persistent
+    // CSMA : non-Persistent
     // True : Channel busy , False : Channel idle
     public static void csma(int seconds) {
-	  	  // ...
+    	// ...
     }
     
-  	// Check transmission done
+    // Check transmission done
     // True : Transmission done , False : Transmission not done
     public static boolean isTransDone() {
-    		// ...
+    	// ...
     }
     
-  	// Check collision detected
+    // Check collision detected
     // True : Collision detected , False : Collision not detected
     public static boolean isColliDetected() {
-    		// ...
+    	// ...
     }
     
-  	// For time wait
+    // For time wait
     public static void wait(int seconds) {
-    		// ...
+    	// ...
     }
 }
 ```
@@ -232,14 +232,14 @@ public class PLSender {
         // Physical Layer >>> Datalink Layer
     }
     
-  	// MLT-3
+    // MLT-3
     public static String mlt(String inputData) {
-    		// ...
+    	// ...
     }
     
-  	// Un MLT-3
+    // Un MLT-3
     public static String unMlt(String physicalData) {
-    		// ...
+    	// ...
     }
 }
 ```
@@ -267,14 +267,14 @@ public class PLReceiver {
         // Physical Layer >>> Physical Layer
     }
     
-  	// MLT-3
+    // MLT-3
     public static String mlt(String inputData) {
-    		// ...
+    	// ...
     }
     
-  	// Un MLT-3
+    // Un MLT-3
     public static String unMlt(String physicalData) {
-    		// ...
+    	// ...
     }
 }
 ```
@@ -304,42 +304,42 @@ public class DLReceiver {
         // Datalink Layer >>> Physical Layer
     }
     
-  	// Bit-Stuffing
+    // Bit-Stuffing
     public static String stuff(String inputData) {
-    		// ...
+    	// ...
     }
     
-  	// Bit-Unstuffing
+    // Bit-Unstuffing
     public static String unStuff(String inputData) {
-    		// ...
+    	// ...
     }
     
-  	// CSMACD
+    // CSMACD
     public static void csmacd() {
-    		// ...
+    	// ...
     }
     
-  	// CSMA : non-Persistent
+    // CSMA : non-Persistent
     // True : Channel busy , False : Channel idle
     public static void csma(int seconds) {
-    		// ...
+    	// ...
     }
     
-  	// Check transmission done
+    // Check transmission done
     // True : Transmission done , False : Transmission not done
     public static boolean isTransDone() {
-    		// ...
+    	// ...
     }
     
-  	// Check collision detected
+    // Check collision detected
     // True : Collision detected , False : Collision not detected
     public static boolean isColliDetected() {
-    		// ...
+    	// ...
     }
     
     // For time wait
     public static void wait(int seconds) {
-    		// ...
+    	// ...
     }
 }
 ```
@@ -392,9 +392,9 @@ public class TLReceiver {
         // Transport Layer >>> Network Layer
     }
     
-  	// Check Packet
+    // Check Packet
     public static boolean checkPacket(Data data) {
-    		// ...
+    	// ...
     }
 }
 ```
