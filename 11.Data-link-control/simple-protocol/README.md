@@ -1,8 +1,8 @@
-# Simple-Protocol 
+# Simple Protocol
 
 ## Sender 
 
-Bit-stuffing 결과를 MLT-3 알고리즘의 입력값으로 넣어 결과를 출력하시오.
+Bit-stuffing 결과를 MLT-3 알고리즘의 입력값으로 넣어 결과를 출력
 
 1) Data-link layer에서 보내고자 하는 Frame : 11111111
 
@@ -14,8 +14,8 @@ Bit-stuffing 결과를 MLT-3 알고리즘의 입력값으로 넣어 결과를 �
 
 #### Physical layer
 
-Sender가 보낸 Bit-stream (예 : +0-0++0-0 )을 MLT-3 알고리즘을 이용하여 0과 1의 Bit-stream으로 변환 (예 : 111110111)
+Sender가 보낸 Bit-stream을 MLT-3 알고리즘을 이용하여 0과 1의 Bit-stream으로 변환
 
 #### Data-link layer
 
-Bit-unstuffing 적용 (예 : 111110111 -> 11111111)
+Bit-unstuffing 적용
